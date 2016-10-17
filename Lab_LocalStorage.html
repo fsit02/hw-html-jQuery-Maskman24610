@@ -70,7 +70,7 @@ fieldset .submit {
 	<H1>實作 HTML5 的 LocalStorage 功能</H1>
 	<p>輸入表單資料，不要按下「Send」送出，關閉瀏覽器，然後重新回到本頁，自動回復先前輸入的內容。</p>
 
-	<form method="post" action="http://exec.hostzi.com/echo.php">
+	<form method="post" action="http://exec.hostzi.com/echo.php" id="form" name="form">
 
 		<fieldset>
 			<legend>Contact Details</legend>
@@ -91,6 +91,35 @@ fieldset .submit {
 	</form>
 
 <span id="test"></span>
+
+<script type="text/javascript" src="jquery-1.9.1.min.js" ></script>
+<script>
+  function doChange(){                                       　//把資料存到localStorage中
+  	// $("#test").html(this.name+":"+this.value+"<br>");
+  	// localStorage.setItem(this.name, this.value);
+  	localStorage.setItem(this.name,this.value);
+  }
+  
+  $("#txtName").keyup(doChange);
+  $("#txtEmail").keyup(doChange);
+  $("#txtPhone").keyup(doChange);
+  
+  function readAndShow(){
+  	if(localStorage["txtName"]){                             　//當localStorage["txtName"] 有資料時，把localStorage["txtName"]的值當作txtName的value
+  		$("#txtName").val(localStorage["txtName"]);
+  	}
+  	if(localStorage["txtEmail"]){                             //當localStorage["txtEmail"] 有資料時，把localStorage["txtName"]的值當作txtEmail的value
+  		$("#txtEmail").val(localStorage["txtEmail"]);
+  	}
+  	if(localStorage["txtPhone"]){                             //當localStorage["txtPhone"] 有資料時，把localStorage["txtName"]的值當作txtPnone的value
+  		$("#txtPhone").val(localStorage["txtPhone"]);
+  	}
+  }
+  $(document).ready(readAndShow);                     //當html準備好時執行readAndShow這個函式
+  
+  $("form").submit(function(){ localStorage.clear();});
+  //document.forms[0].onsubmit = function () { localStorage.clear(); };
+</script>
 
 
 </body>
